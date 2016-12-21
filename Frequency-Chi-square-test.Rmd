@@ -1,0 +1,54 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#http://r-exercises.com/2016/11/30/frequency-and-chi-square-test-for-independance/
+
+
+
+#use the attach() command to load the trees dataset in R
+attach(trees)
+
+#Use the table() command with the arguments: trees$Height and trees$Volume. This will generate a two-way frequency table. Store this in variable mytable.
+mytable=table(trees$Height, trees$Volume)
+
+#If you are familiar with excel pivot tables, then you will know this function. Use the margin.table( ) function to get the Height frequencies summed over Volume
+margin.table(mytable,1)
+
+#Use the margin.table( ) function to get the Volume frequencies summed over Height.
+margin.table(mytable,2)
+
+#Now use the table() function again but using all the features of the trees dataset, that includes girth, height and volume. This will print out a multidimensional 3 way frequency table.
+table(trees$Girth, trees$Height, trees$Volume)
+
+#Suppose you have a variable ‘a’ that stores a second sample of heights of trees.
+#a=c(70, 65, 63, 72, 80, 83, 66, 75, 80, 75, 79, 76, 76, 69, 75, 74, 85, 8, 71, 63, 78, 80, 74, 72, 77, 81, 82, 80, 86, 80, 87)
+#Use the cbind() to add the a column to your trees dataset. Store the results back into trees.
+a=c(70, 65, 63, 72, 80, 83, 66, 75, 80, 75, 79, 76, 76, 69, 75, 74, 85, 8, 71, 63, 78, 80, 74, 72, 77, 81, 82, 80, 86, 80, 87)
+trees=cbind(trees, a)
+
+#Now create a 2 way frequency table between Height and a as the arguments. Store this table in mytable_2.
+mytable_2=table(trees$Height, trees$a)
+
+#Chi Square test for independance:
+#a)Print the results of the summary() function on mytable. Note the Chi Square test for independance results and P value
+#b)Print the results of the summary() function on mytable_2. Note the Chi Square test for independance results and P value.
+summary(mytable)
+summary(mytable_2)
+
+#What did the chi square test for independance help you to see?
+
+##for mytable_2, we are seeing values greater than 1 and there are more matching values than
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
