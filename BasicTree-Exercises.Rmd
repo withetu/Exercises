@@ -1,0 +1,59 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#https://www.r-bloggers.com/basic-tree-1-exercises/
+
+
+#Use read.csv() command to load the lenses.csv data and store it in lens. Use the str() command to see lens.
+lens <- read.csv("C:\\Users\\user\\Documents\\GitHub\\Exercises\\lenses.csv")
+str(lens)
+
+#Notice there are no column names. The column names are as follows
+#index, age, spec_pres, astigmatic, tpr. Use one line code to change the column names to the aforementioned names.
+colnames(lens) <- c("index","age","spec_pres","astigmatic","tpr","class")
+
+#Given the meta data
+lens$age[lens$age=="1"]="young"
+lens$age[lens$age=="2"]="pre-presbyopic"
+lens$age[lens$age=="3"]="presbyopic"
+lens$spec_pres[lens$spec_pres=="1"]="myope"
+lens$spec_pres[lens$spec_pres=="2"]="hypermetrope"
+
+#Use the str() command to see the changes. Also notice that the astigmatic column is a factor that is also storing numbers as characters. To get all of them in the same format, lets convert it to character. Use the code as.character() to convert this column data type to character.
+str(lens)
+lens$astigmatic=as.character(lens$astigmatic)
+
+#Now change the astigmatic column data to the right names
+lens$astigmatic[lens$astigmatic=="1"]="no"
+lens$astigmatic[lens$astigmatic=="2"]="yes"
+
+#Use the following code to replace the 1 with “reduced in the tpr column
+lens$tpr[lens$tpr==1]="reduced"
+lens
+#Now type str(lens) to see the dataframe. Notice that the tpr column data type change to character from integer. Anytime you introduce something that is not a number in a number dataframe, it will become a character.
+
+#Go ahead and replace 2 in the tpr column with “normal”
+lens$tpr[lens$tpr=="2"]="normal"
+
+#use the table() command to see the counts of each data type
+table(lens$astigmatic)
+
+#Notice that there is a g in the count. That could possibly be a typo. We can go ahead and remove that row since there is only one row with that typo. Hint: You can select all rows that does not have that typo and store it back in the lens dataframe.
+lens=lens[lens$astigmatic!="g",]
+
+#Great Work. We realized that the index column is not necessary for our modeling purposes. So lets remove the index column.
+lens
+lens=lens[-1]
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
