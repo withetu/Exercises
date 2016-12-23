@@ -1,0 +1,80 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#http://r-exercises.com/2016/12/07/r-sql-exercises/
+
+
+#Install the ‘sqldf’ and ‘PASWR’ package. Load the packages. Also load the ‘titanic3’ data from ‘PASWR’ package.
+if(!require(sqldf)){
+  install.packages("sqldf")
+}
+library(sqldf)
+
+if(!require(PASWR)){
+  install.packages("PASWR")
+}
+library(PASWR)
+
+data("titanic3")
+
+#Count the number of rows in the ‘titanic3’ data using sqldf function. Below is the R equivalent code to do the same.
+nrow(titanic3)
+
+sqldf("select count(*) from titanic3")
+
+#Select all the columns and rows from ‘titanic3’ data and put it into a variable ‘TitanicData’. Below is the R equivalent code to the same.
+TitanicData <- titanic3[ , ]
+
+TitanicData <- sqldf("select * from titanic3")
+
+#Select the first two columns of the ‘titanic3’ data and put it into a variable ‘TitanicSubset2Cols’. Below is the R equivalent code to the same. Note: you need to specify the column names in sqldf function.
+TitanicSubset2Cols<- titanic3[,c(1,2)]
+
+colnames(titanic3)
+TitanicSubset2Cols<- sqldf("select pclass, survived from titanic3")
+
+#Print the first 6 rows of the ‘titanic3’ dataset using sqldf function. Below is the R equivalent code to do the same.
+head(titanic3)
+
+sqldf("select * from titanic3 limit 6")
+
+#Count the number of people in the ‘titanic3’ dataset where the sex is female. Below is the R equivalent code to do the same.
+nrow(titanic3[titanic3$sex=="female",])
+
+sqldf("select count(*) from titanic3 where sex='female'")
+sqldf("select * from titanic3 where sex='male'")
+
+#Count the number of people in the ‘titanic3’ dataset where the sex is female and the port of embarkment is southampton. Below is the R equivalent code to do the same.
+nrow(titanic3[(titanic3$sex=="female" & titanic3$embarked=="southampton"),])
+
+sqldf("select count(*) from titanic3 where (sex='female' and embarked='southampton')")
+
+#Calculate the total amount paid by female (where sex is female). Below is the R equivalent code to do the same.
+sum(titanic3$fare[titanic3$sex=="female"])
+
+sqldf("select sum(fare) from titanic3 where sex='female'")
+
+#Count the number of cabins in the ship. Below is the R equivalent code to do the same.
+length(unique(titanic3$cabin))
+
+sqldf("select count(distinct cabin) from titanic3")
+
+#Count the number of people in the ship whose name start with ‘A’. Below is the R equivalent to do the same.
+nrow(titanic3[grep("^A", titanic3$name),])
+
+sqldf("select count(*) from titanic3 where name like 'A%' ")
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
