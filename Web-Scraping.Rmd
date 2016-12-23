@@ -1,0 +1,180 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#http://r-exercises.com/2016/12/20/web-scraping-exercises/
+
+
+##            ***IMPORTANT LEARN***
+
+
+
+
+#Consider the url ‘http://statbel.fgov.be/en/statistics/figures/economy/indicators/prix_prod_con/’
+#Extract all the information load on table ‘Third Quarter 2016’.
+if(!require(rvest)){
+  install.packages("rvest")
+}
+library(rvest)
+
+url='http://statbel.fgov.be/en/statistics/figures/economy/indicators/prix_prod_con/'
+TAB=read_html(url)%>%html_nodes('td')%>%html_text()
+NAMES=read_html(url)%>%html_nodes('th')%>%html_text()
+M=data.frame(matrix(TAB,ncol=5,nrow=9,byrow=T))
+M=cbind(NAMES[7:15],M)
+names(M)=NAMES[1:6]
+M
+
+#Consider the url ‘http://www2.sas.com/proceedings/sugi30/toc.html’
+#Extract all the papers names, from 001-30 to 268-30
+url='http://www2.sas.com/proceedings/sugi30/toc.html'
+names=read_html(url)%>%html_nodes('cite')%>%html_text()
+names
+
+#Consider the url ‘http://www.gibbon.se/Retailer/Map.aspx?SectionId=832’
+#Extract all the options (countries) availables on select button.
+url='http://www.gibbon.se/Retailer/Map.aspx?SectionId=832'
+countries=read_html(url)%>%html_nodes('#ctl00_ContentPlaceHolder1__countries')%>%html_children()%>%html_text()
+countries
+
+#Consider the url ‘http://r-exercises.com/start-here-to-learn-r/’
+#Extract all the topics available on the url.
+url='http://r-exercises.com/start-here-to-learn-r/'
+topics=read_html(url)%>%html_nodes('a')%>%html_text()
+topics[23:113]
+
+#Consider the url ‘http://www.immobiliare.it/Roma/agenzie_immobiliari_provincia-Roma.html’
+#Extract all inmobiliaries names published on first page.
+url='http://www.immobiliare.it/Roma/agenzie_immobiliari_provincia-Roma.html'
+names=read_html(url)%>%html_nodes('a')%>%html_text()
+First=grep('Building&Money',names)
+Last=max(grep('RE/MAX',names))
+LIST=unique(names[First:Last])
+LIST=LIST[-2]
+LIST=LIST[-2]
+LIST
+
+#Consider the url 'http://www.gibbon.se/Retailer/Map.aspx?SectionId=832'
+#Extract the links to the detailed information of each row on the table.
+#For example, for the first adress, 	Karlbergsvägen 32, 113 27 stockholm, the details are
+# A.E.N HUND I STAN AB
+# 
+# ADRESS OCH ÖPPETTIDER
+# Karlbergsvägen 32
+# 113 27 STOCKHOLM
+# Öppettider: 
+# Telefon: 08-313058
+# Mail-adress: info@hundistan.eu
+# Hemsida:
+#and the link to that details (clicking on Karlbergsvägen 32, 113 27 stockholm) is http://www.gibbon.se/Retailer/Retailer.aspx?ItemId=45128. 
+#You have to extract all the links available, one per row
+url='http://www.gibbon.se/Retailer/Map.aspx?SectionId=832'
+links=read_html(url)%>%html_nodes('a')%>%html_attrs()
+links=unlist(links)
+Links=unique(links[grep('Retailer.aspx',links)])
+Links=paste('http://www.gibbon.se/Retailer/',Links)
+Links
+
+#Consider the url 'https://www.bkk-klinikfinder.de/suche/suchergebnis.php?next=1'
+#Extract the links to the detailed information of each hospital in page 1. For example, for the hospital Krankenhaus Dresden-Friedrichstadt Städtisches Klinikum, the details are available on the link: https://www.bkk-klinikfinder.de/krankenhaus/index.php?id=26140094900
+url='https://www.bkk-klinikfinder.de/suche/suchergebnis.php?next=1'
+A=unlist(read_html(url)%>%html_nodes('a')%>%html_attrs())
+B=A[grep('/krankenhaus/index.php?', A)]
+url2=paste('https://www.bkk-klinikfinder.de', B, sep = '')
+url2
+
+#Consider the url scraped in Exercise 7. 
+#Extract the links to 'Details' for each hospital display on the first 4 pages.
+url='https://www.bkk-klinikfinder.de/suche/suchergebnis.php?next=1'
+pa=c(1,11,21,31)
+pages=paste('https://www.bkk-klinikfinder.de/suche/suchergebnis.php?next=',pa, sep='')
+BB=c()
+for(i in 1:length(pages))
+{
+  url2=pages[i]
+  A=unlist(read_html(url)%>%html_nodes('a')%>%html_attrs())
+  B=A[grep('/krankenhaus/index.php?', A)]
+  BB=c(BB,B)
+}
+BB
+
+#Consider the url'http://www.dictionary.com/browse/' and the words 'handy','whisper','lovely','scrape'. Build a data frame, where the first variables is "Word" and the second variables is "definitions". Scrape the definitions from the url.
+word=c('handy','whisper','lovely','scrape')
+defs=c()
+for(i in 1:4)
+{
+  url=paste('http://www.dictionary.com/browse/', word[i], sep="")
+  a=read_html(url)%>%html_nodes('.def-content,#source-word-origin')%>%html_text()
+  def=a[1:grep(paste('Origin of ', word[i], sep=''),a)-1]
+  def=unlist(strsplit(def,'\r'))
+  def=unique(unlist(strsplit(def,'\n')))
+  def=paste(def,rep('/', length(def)))
+  def=toString(def)
+  defs=c(defs,def)
+}
+s=data.frame(cbind(word,defs))
+s
+
+#Consider the url 'http://www.gibbon.se/Retailer/Map.aspx?SectionId=832'.
+#Build a data frame with all the information available for each row.
+#For example, for the first adress, 	Karlbergsvägen 32, 113 27 stockholm, the details are
+# A.E.N HUND I STAN AB
+#
+# ADRESS OCH ÖPPETTIDER
+# Karlbergsvägen 32
+# 113 27 STOCKHOLM
+# Öppettider:
+# Telefon: 08-313058
+# Mail-adress: info@hundistan.eu
+# Hemsida:
+#For the second row, 	Inedalsgatan 5, 112 33 stockholm, the details are
+# ARKENZOO KUNGSHOLMEN A
+#
+# ADRESS OCH ÖPPETTIDER
+# Kungs Zoo AB
+# Inedalsgatan 5
+# 112 33 STOCKHOLM
+# Öppettider:
+# Telefon: 08-7248110
+# Mail-adress: kungsholmen@arkenzoo.se
+# Hemsida: www.arkenzoo.se
+
+#This details will be saved on the first row of the data.frame.
+#  Website address               Name of store Phone Number            Email adress     City Country
+#1                        A.E.N Hund i Stan AB    08-313058       info@hundistan.eu Stocholm  Sweden
+#2 www.arkenzoo.se ArkenZoo Kungsholmen      A   08-7248110 kungsholmen@arkenzoo.se Stocholm  Sweden
+url='http://www.gibbon.se/Retailer/Map.aspx?SectionId=832'
+aux=read_html(url)%>%html_nodes('a')%>%html_attrs()
+aux=unlist(aux)
+s=unique(aux[grep('Retailer.aspx?',aux)])
+paises=read_html(url)%>%html_nodes('#ctl00_ContentPlaceHolder1__countries')%>%html_children()
+A=c()
+for (i in 1:length(s))
+{
+url2=paste('http://www.gibbon.se/Retailer/',s[i],sep='')
+aux=read_html(url2)%>%html_nodes('span')%>%html_text()
+nombre=read_html(url2)%>%html_nodes('h1')%>%html_text()
+nombre=nombre[2]
+mail=aux[grep('Mail-adress:',aux)+1]
+tel=aux[grep('Telefon:',aux)+1]
+web=aux[grep('Hemsida:',aux)+1]
+A=rbind(A,c(web,nombre,tel,mail))
+}
+A=data.frame(A)
+A$City=rep('Stocholm',nrow(A))
+A$Country=rep('Sweden',nrow(A))
+names(A)=c('Website address','Name of store','Phone Number','Email adress','City','Country')
+A
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
