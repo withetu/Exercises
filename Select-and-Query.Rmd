@@ -1,0 +1,78 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#https://www.r-bloggers.com/select-and-query-exercise/
+
+
+
+#create vectors.
+a<- c(4, 5,6,8,3)
+b<- c("apple","chair","jetplane","salmon","island")
+c<- c(TRUE,TRUE,FALSE,TRUE,FALSE)
+
+#create a dataframe using the variables a,b and c. Store this in df
+df<- data.frame(a,b,c)
+df
+
+#use the str() command to see the dataframe
+str(df)
+
+#print the column names of df
+colnames(df)
+
+#change the column names of df to “id”,”wish”,”real”. View the dataframe again using the str() command.
+str(df)
+colnames(df)=c("id","wish","real")
+colnames(df)
+str(df)
+
+#select the first column of the df using column name
+df['id']
+#select the row where id==3. Use this logic to select the row
+df[df['id']==3]
+#Now use the index method to select the first row in df
+df[1,]
+#select the second column of the df using index method
+df[,2]
+#select the second item in the third row of df
+df[3,2]
+
+#attach/load the iris dataset and use the str() command to see the dataset
+attach(iris)
+str(iris)
+
+#change the column names of iris to "sl","sw","sl","pw","s"
+colnames(iris)=c("sl","sw","sl","pw","s")
+colnames(iris)
+str(iris)
+
+#select the rows where ‘sw’ is 3
+iris[iris['sw']==3]
+#select the first element of the second cloumn
+iris[1,2]
+#select the first 6 rows of the dataset
+head(iris)
+#select the last 6 rows of the dataset
+tail(iris)
+#select every column except the s column
+iris[-5]
+
+#select all the rows where sl is greater than 5 and store all the sample in iris_2 making sure to exclude the s column
+iris_2<-iris[iris['sl']>5,-5]
+iris_2
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
