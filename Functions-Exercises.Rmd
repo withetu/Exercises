@@ -206,6 +206,121 @@ NEWDF=function(df,x,y)
 NEWDF(df,3,6)
 NEWDF(df,7,5)
 
+#Create a function that given a numeric vector, sort this in ascending order and duplicate it by two.
+FUNvector1=function(v)
+{
+  v=sort(v)*2
+  return(v)
+}
+v=c(2,4,1,7,3,2,7,9)
+FUNvector1(v)
+
+#Create a function that given a vector alpha numeric, keep only the numbers and apply the function created on exercise 4.
+#For example, if the input is a vector w="a" "v" "7" "4" "q" , the function will return w=8 14.
+FUNvector2=function(w)
+{
+  w=as.numeric(w[-which(w %in% letters)])
+  w
+  w=FUNvector1(w)
+  return(w)
+}
+a=c('a','v',7,4,'q')
+a=FUNvector2(a)
+a
+b=c(letters[1:23],10:1,letters[24:26],11:22)
+b=FUNvector2(b)
+b
+
+# Create a function that given a string 
+# ST='NAME: Maria /COUNTRY:uruguay /EMAIL: mariaUY@gmail.com'
+# return a data.frame
+#      [,1]      [,2]              
+# [1,] "NAME"    " Maria "         
+# [2,] "COUNTRY" "uruguay "        
+# [3,] "EMAIL"   " mariaUY@gmail.com"
+ST='NAME: Maria /COUNTRY:uruguay /EMAIL: mariaUY@gmail.com /Location: London'
+DF=function(ST)
+{
+  A=unlist(strsplit(ST,'/'))
+  M=rbind(unlist(strsplit(A[1],':')), unlist(strsplit(A[2],':')), unlist(strsplit(A[3],':')), unlist(strsplit(A[4],':')))
+  return(M)
+}
+M=DF(ST)
+M
+
+# Consider a vector:
+# ST=c('NAME:Maria /COUNTRY:uruguay /EMAIL:mariaUY@gmail.com','NAME:Paul/COUNTRY:UK /EMAIL:PaulUK@gmail.com','NAME:Jhon /COUNTRY:USA /EMAIL:JhonUSA@gmail.com','NAME:Carlos /COUNTRY:Spain /EMAIL:CarlosSP@gmail.com')
+# Create a function that given a vector string ST return a matrix:
+#     [,1]      [,2]                [,3]               [,4]                [,5]                
+# [1,] "NAME"    "Maria "            "Paul"             "Jhon "             "Carlos "           
+# [2,] "COUNTRY" "uruguay "          "UK "              "USA "              "Spain "            
+# [3,] "EMAIL"   "mariaUY@gmail.com" "PaulUK@gmail.com" "JhonUSA@gmail.com" "CarlosSP@gmail.com"
+ST=c('NAME:Maria /COUNTRY:uruguay /EMAIL:mariaUY@gmail.com','NAME:Paul/COUNTRY:UK /EMAIL:PaulUK@gmail.com','NAME:Jhon /COUNTRY:USA /EMAIL:JhonUSA@gmail.com','NAME:Carlos /COUNTRY:Spain /EMAIL:CarlosSP@gmail.com')
+DF2=function(V)
+{
+  M=DF(V[1])
+  for(i in 2:length(V))
+    M=cbind(M,DF(V[i])[,2])
+  return(M)
+}
+DF2(ST)
+
+#Create a function that given a numeric vector X returns the digits 0 to 9 that are not in X. If X=0 2 4 8 
+#the function return 1 5 3 8
+DIGITS=function(X)
+{
+  b=0:9
+  Y=b[!b%in%a]
+  return(Y)
+}
+a=c(1,5,3,8)
+DIGITS(a)
+
+#Create a function that given two strings (one word each), check if one is an anagram of another.
+if(!require(stringr))
+{
+  install.packages("stringr")
+}
+library(stringr)
+if(!require(stringi))
+{
+  install.packages("stringi")
+}
+library(stringi)
+
+ANAGRAM=function(a,b)
+{
+x=unlist(stri_extract_all(a, regex=c('\\p{L}')))
+y=unlist(stri_extract_all(b, regex=c('\\p{L}')))
+if (length(x)==length(y))
+  {cond=unique(x%in%y==y%in%x)
+   cat('anagram:',ifelse(length(x)==length(y) & length(cond)==1,ifelse(cond==TRUE,TRUE,FALSE),FALSE))
+}
+if (length(x)!=length(y))
+  cat('anagram: FALSE')
+}
+a='serpent'
+b='present'
+ANAGRAM(a,b)
+x='married'
+y='admirer'
+ANAGRAM(x,y)
+x='Deduction'
+y='Discounted'
+ANAGRAM(x,y)
+
+#Create a function that given one word, return the position of word’s letters on letters vector.
+#For example, if the word is ‘abc’, the function will return 1 2 3.
+ORDERWORD=function(a)
+{
+x=unlist(stri_extract_all(a, regex=c('\\p{L}')))
+POSITION=which(letters%in%x)
+return(POSITION)
+}
+a='hello'
+ORDERWORD(a)
+
+
 
 ```
 
