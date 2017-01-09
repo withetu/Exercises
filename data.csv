@@ -1,0 +1,44 @@
+Import Country,Import Continent,Import Subcontinent,Export_Country,Export_Continent,Export_Subcontinent,Data Type,Year,Commodity Description,Commodity Code,US_Dollar_Value,Tonnes,Group,Sub-Group,Cargo,Seabourne,Tonne Mile,Tonne Days
+Spain,Europe,Western Europe,USA,North America,North America,Actual,2015,Aluminium,7601,987914,502.486,Construction,Construction,Dry,Yes,1912461.716,7281.79893
+Spain,Europe,Western Europe,Venezuela,Latin America,South America,Actual,2015,Aluminium,7601,3099902,1791.105,Construction,Construction,Dry,Yes,7845039.9,29060.02967
+Spain,Europe,Western Europe,Turkey,Asia,Middle East,Actual,2015,Aluminium,7601,9807116,4177.098,Construction,Construction,Dry,Yes,8091038.826,36960.75905
+Spain,Europe,Western Europe,Egypt,Africa,Northern Africa,Actual,2015,Aluminium,7601,7904541,3781.961,Construction,Construction,Dry,Yes,7900516.529,35200.09957
+Spain,Europe,Western Europe,United Kingdom,Europe,Western Europe,Actual,2015,Aluminium,7601,42352508,20173.603,Construction,Construction,Dry,Yes,15816104.75,108274.7485
+Spain,Europe,Western Europe,United Arab Emirates,Asia,Middle East,Actual,2015,Aluminium,7601,71606918,32078.556,Construction,Construction,Dry,Yes,113108988.5,437748.3143
+Spain,Europe,Western Europe,Tunisia,Africa,Northern Africa,Actual,2015,Aluminium,7601,2520199,1200,Construction,Construction,Dry,Yes,962400,6505.797101
+Spain,Europe,Western Europe,Slovenia,Europe,Eastern Europe,Actual,2015,Aluminium,7601,9112,2.211,Construction,Construction,Dry,Yes,2222.055,13.34210326
+Spain,Europe,Western Europe,South Africa,Africa,Southern Africa,Actual,2015,Aluminium,7601,10816898,5467.229,Construction,Construction,Dry,Yes,27128390.3,98311.078
+Spain,Europe,Western Europe,Sweden,Europe,Western Europe,Actual,2015,Aluminium,7601,7240479,3620.442,Construction,Construction,Dry,Yes,5868736.482,28580.94098
+Spain,Europe,Western Europe,Slovakia,Europe,Eastern Europe,Actual,2015,Aluminium,7601,15025,3.943,Construction,Construction,Dry,Yes,4613.31,25.75807609
+Spain,Europe,Western Europe,Singapore,Asia,South-Eastern Asia,Actual,2015,Aluminium,7601,538873,199.039,Construction,Construction,Dry,Yes,1415366.329,4870.566061
+Spain,Europe,Western Europe,Russian Federation,Europe,Eastern Europe,Actual,2015,Aluminium,7601,113719721,51390.675,Construction,Construction,Dry,Yes,110592732.6,488087.2804
+Spain,Europe,Western Europe,Saudi Arabia,Asia,Middle East,Actual,2015,Aluminium,7601,4422126,2092.221,Construction,Construction,Dry,Yes,6525637.299,25979.67417
+Spain,Europe,Western Europe,Serbia,Europe,Eastern Europe,Actual,2015,Aluminium,7601,14638,2.432,Construction,Construction,Dry,Yes,3086.208,16.61426087
+Spain,Europe,Western Europe,Poland,Europe,Eastern Europe,Actual,2015,Aluminium,7601,4891,1.961,Construction,Construction,Dry,Yes,2829.723,14.42684964
+Spain,Europe,Western Europe,Portugal,Europe,Western Europe,Actual,2015,Aluminium,7601,10411751,8571.948,Construction,Construction,Dry,Yes,2794455.048,34153.20828
+Spain,Europe,Western Europe,Qatar,Asia,Middle East,Actual,2015,Aluminium,7601,2131549,904.649,Construction,Construction,Dry,Yes,2984437.051,11724.92843
+Spain,Europe,Western Europe,Romania,Europe,Eastern Europe,Actual,2015,Aluminium,7601,303745,141.977,Construction,Construction,Dry,Yes,254280.807,1193.68706
+Spain,Europe,Western Europe,Norway,Europe,Western Europe,Actual,2015,Aluminium,7601,263130919,118445.421,Construction,Construction,Dry,Yes,173167205.5,878184.1057
+Spain,Europe,Western Europe,Peru,Latin America,South America,Actual,2015,Aluminium,7601,1803404,1049.403,Construction,Construction,Dry,Yes,6207218.745,21889.81149
+Spain,Europe,Western Europe,Netherlands,Europe,Western Europe,Actual,2015,Aluminium,7601,50245197,13882.055,Construction,Construction,Dry,Yes,12827018.82,80375.08656
+Spain,Europe,Western Europe,New Zealand,Oceania,Oceania,Actual,2015,Aluminium,7601,1857786,696.056,Construction,Construction,Dry,Yes,8608820.608,28080.98385
+Spain,Europe,Western Europe,Nigeria,Africa,Western Africa,Actual,2015,Aluminium,7601,375602,246.842,Construction,Construction,Dry,Yes,591433.432,2526.254961
+Spain,Europe,Western Europe,Montenegro,Europe,Eastern Europe,Actual,2015,Aluminium,7601,218174,95.39,Construction,Construction,Dry,Yes,114658.78,632.3619686
+Spain,Europe,Western Europe,Mozambique,Africa,Eastern Africa,Actual,2015,Aluminium,7601,126012074,63568.742,Construction,Construction,Dry,Yes,326870471.4,1177633.978
+Spain,Europe,Western Europe,Luxembourg,Europe,Western Europe,Actual,2015,Aluminium,7601,5660380,2653.467,Construction,Construction,Dry,Yes,2191763.742,14578.04515
+Spain,Europe,Western Europe,Mexico,Latin America,Central America,Actual,2015,Aluminium,7601,6867533,2798.907,Construction,Construction,Dry,Yes,15830617.99,56194.48064
+Spain,Europe,Western Europe,Italy,Europe,Western Europe,Actual,2015,Aluminium,7601,14365561,7195.422,Construction,Construction,Dry,Yes,6195258.342,40291.75616
+Spain,Europe,Western Europe,Iceland,Europe,Western Europe,Actual,2015,Aluminium,7601,352503,151.618,Construction,Construction,Dry,Yes,275035.052,1285.273843
+Spain,Europe,Western Europe,Greece,Europe,Eastern Europe,Actual,2015,Aluminium,7601,357202,183.638,Construction,Construction,Dry,Yes,270315.136,1367.082889
+Spain,Europe,Western Europe,France,Europe,Western Europe,Actual,2015,Aluminium,7601,16518808,8039.503,Construction,Construction,Dry,Yes,5072926.393,39435.31574
+Spain,Europe,Western Europe,Germany,Europe,Western Europe,Actual,2015,Aluminium,7601,21592017,9066.601,Construction,Construction,Dry,Yes,10571656.77,59119.05652
+Spain,Europe,Western Europe,Czech Rep.,Europe,Eastern Europe,Actual,2015,Aluminium,7601,1697246,157.422,Construction,Construction,Dry,Yes,176470.062,1005.086236
+Spain,Europe,Western Europe,China,Asia,Far East,Actual,2015,Aluminium,7601,397248,211.394,Construction,Construction,Dry,Yes,1226719.382,4338.044868
+Spain,Europe,Western Europe,Bulgaria,Europe,Eastern Europe,Actual,2015,Aluminium,7601,85131,47.975,Construction,Construction,Dry,Yes,67740.7,348.456099
+Spain,Europe,Western Europe,Austria,Europe,Western Europe,Actual,2015,Aluminium,7601,88194,15.016,Construction,Construction,Dry,Yes,17028.144,96.46147826
+Spain,Europe,Western Europe,Canada,North America,North America,Actual,2015,Aluminium,7601,137951,24.453,Construction,Construction,Dry,Yes,87077.133,336.2730489
+Spain,Europe,Western Europe,Bahrain,Asia,Middle East,Actual,2015,Aluminium,7601,62130123,27341.26,Construction,Construction,Dry,Yes,89788697.84,353124.9208
+Spain,Europe,Western Europe,Belgium,Europe,Western Europe,Actual,2015,Aluminium,7601,101918,111.557,Construction,Construction,Dry,Yes,88910.929,603.1218726
+Spain,Europe,Western Europe,Azerbaijan,Asia,Middle East,Actual,2015,Aluminium,7601,164147,100.698,Construction,Construction,Dry,Yes,281249.514,1151.277315
+Spain,Europe,Western Europe,Australia,Oceania,Oceania,Actual,2015,Aluminium,7601,1712528,657.44,Construction,Construction,Dry,Yes,7196338.24,23700.3944
+Spain,Europe,Western Europe,India,Asia,Indian Subcontinent,Actual,2015,Aluminium,7601,11708341,6579.172,Construction,Construction,Dry,Yes,30040499.35,110439.5068
