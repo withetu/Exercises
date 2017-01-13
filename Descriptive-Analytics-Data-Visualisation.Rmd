@@ -10,8 +10,12 @@ Try executing this chunk by clicking the *Run* button within the chunk or by pla
 ```{r}
 
 ##  http://r-exercises.com/2016/12/11/descriptive-analytics-part-5-data-visualisation-categorical-variables/
+##  http://r-exercises.com/2016/12/26/descriptive-analytics-part-5-data-visualisation-spatial/
 
-##     Descriptive Analytics-Part 5: Data Visualisation (Categorical variables) 
+
+##     Descriptive Analytics-Part 5: Data Visualisation (Categorical variables)
+##     Descriptive Analytics-Part 5: Data Visualisation (Spatial data)
+
 
 
 library(ggplot2)
@@ -95,6 +99,108 @@ ggplot(data)+
   geom_text(colour='white', size=2)+
   scale_fill_distiller(name='# of flights', type = 'div', palette=9)+
   theme_bw()
+
+
+
+
+
+
+
+
+
+##     Descriptive Analytics-Part 5: Data Visualisation (Spatial data)
+
+
+##merged flights and airports dataset
+
+library(dplyr)
+airports <- read.csv('airports.csv')
+flights <- tbl_df(flights) 
+airports <- tbl_df(airports) 
+# we will use only the rows without NA's 
+flights_NA <-flights[which(!is.na(flights['WeatherDelay'])),]
+airports <- airports[c("iata","lat","long")]
+
+dest <- merge.data.frame(flights_NA, airports, by.x = "Dest", by.y = "iata")
+colnames(dest)[which(names(dest) == "lat")] <- "d_lat"
+colnames(dest)[which(names(dest) == "long")] <- "d_long"
+
+origin <- merge.data.frame(flights_NA, airports, by.x = "Origin", by.y = "iata")
+colnames(origin)[which(names(origin) == "lat")] <- "o_lat"
+colnames(origin)[which(names(origin) == "long")] <- "o_long"
+
+dest <- dest[order(dest$Dest,dest$DepTime),]
+origin <- origin[order(origin$Dest,origin$DepTime),] 
+
+head(dest)
+head(origin)
+
+flights <- dest
+flights[c("o_lat","o_long")] <- origin[,c("o_lat","o_long")]
+
+
+
+if(!require(ggplot2)){
+  install.packages("ggplot2")
+}
+library(ggplot2)
+
+if(!require(dplyr)){
+  install.packages("dplyr")
+}
+library(dplyr)
+
+if(!require(ggmap)){
+  install.packages("ggmap")
+}
+library(ggmap)
+
+#Query the map of United States using the get_map function.
+#It is recommended to experiment with the various types of maps and select the one that you think is the best. (I have used the toner-lite from Stamen Maps.)
+map <- get_map(location='united states',zoom = 4,
+                 source="stamen", maptype="toner-lite", crop=FALSE)
+
+#Print the map that you have selected.
+ggmap(map)
+
+#Modify the printed map in order to print out a bigger image( extent) and assign it to a m object.
+
+destinations <- flights %>%
+  group_by(Dest)%>%
+  mutate(flights = n(), arr_delay = sum(ArrDelay,na.rm = TRUE))%>%
+  select (Dest,Origin, d_long, d_lat,  flights,arr_delay, DayOfWeek )
+
+m <- ggmap(map, extent = "device", legend = "topleft")
+
+#Plot the destination airports of the flights on the map.
+m + geom_point(data = destinations , aes(x = d_long, y = d_lat))
+
+#Plot the destination airports of the flights on the map, the size of the points should be based on the number of flights that arrived to the destination airports.
+m+geom_point(data = destinations, aes(x=d_long, y=d_lat, size=flights), alpha=0.5, color="darkred")
+
+#Plot the destination airports of the flights on the map, the colour of the points should be based on the number of flights that arrived to the destination airport. Make it a bit prettier, use the scale_colour_gradient and set the lows and the highs of your preferences.
+m + geom_point(data = destinations, aes(x = d_long, y = d_lat,colour = flights),alpha=0.5)+
+  scale_colour_gradient(low = "green",  high = "red")
+
+#Plot the destination airports of the flights on the map, the colour of the points should be based on the number of flights that arrived to the destination airport and the size of the points should be based on the total delay of arrival of the flights that arrived at the destination airport.
+#Something is not right here, right?
+m + geom_point(data = destinations, aes(x=d_long, y=d_lat, size = flights, colour=arr_delay), alpha=0.5)+
+  scale_colour_gradient(low="green", high = "red")
+
+#Plot the destination airports of the flights on the map, the colour of the points should be based on the number of flights that arrived to the destination airport and the size of the points should be based on the total delay of arrival divided by the number of flights per destination.
+m + geom_point(data = destinations, aes(x=d_long, y=d_lat, size = flights, colour=arr_delay/flights), alpha=0.5)+
+  scale_colour_gradient(low="green", high="red")
+
+#Plot the destination airports for everyday of the week (hint : facet_wrap )
+m <- ggmap(map, extent = "device", base_layer=ggplot(destinations, aes(x=d_long, y=d_lat)))+
+  geom_point(size=1)
+m+facet_wrap(~DayOfWeek)
+
+#Plot the destination airports of the flights on the map, the colour of the points should be based on the number of flights that arrived to the destination airports, the size of the points should be based on the total delay of arrival of the flights that arrived at the destination airport for everyday of the week.
+m <- ggmap(map, extent = "device", base_layer = ggplot(destinations, aes(x=d_long, y=d_lat, size=flights)))+
+  geom_point(aes(colour=arr_delay/flights), alpha=0.5)+
+  scale_colour_gradient(low="green", high = "red")
+m+facet_wrap(~DayOfWeek)
 
 
 ```
