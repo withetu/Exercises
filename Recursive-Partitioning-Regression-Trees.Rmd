@@ -1,0 +1,53 @@
+---
+title: "R Notebook"
+output: html_notebook
+---
+
+This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute code within the notebook, the results appear beneath the code. 
+
+Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
+
+```{r}
+#http://r-exercises.com/2016/12/13/recursive-partitioning-and-regression-trees-exercises/
+
+#------Recursive Partitioning and Regression Trees Exercises-----
+library(rpart)
+
+help('kyphosis')
+
+#Build a tree to classify Kyphosis from Age, Number and Start.
+TREE=rpart(Kyphosis ~ Age + Number + Start, data=kyphosis,method="class")
+TREE
+
+#------Consider the tree build in exercise 1.------
+#1) Which variables are used to explain kyhosis presence?
+#option using plot
+plot(TREE)
+text(TREE, use.n=T)
+TREE
+cat('the variables are Start and Age')
+
+#2) How many observations contains the terminal nodes.
+cat('*denotes terminal nodes. Each nodes has 29, 12, 14, 7 and 19 observations')
+
+
+# Consider the Kyphosis data frame.
+# 1)Build a tree using the first 60 observations of kyphosis.
+TREE=rpart(Kyphosis ~ Age + Number + Start, data=kyphosis[1:60,],method="class")
+TREE
+
+# 2)Predict the kyphosis presence for the other 21 observations.
+PR=predict(TREE, kyphosis[61:81,], type='class')
+
+
+
+
+
+
+
+
+```
+
+Add a new chunk by clicking the *Insert Chunk* button on the toolbar or by pressing *Ctrl+Alt+I*.
+
+When you save the notebook, an HTML file containing the code and output will be saved alongside it (click the *Preview* button or press *Ctrl+Shift+K* to preview the HTML file).
