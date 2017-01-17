@@ -35,11 +35,21 @@ cat('*denotes terminal nodes. Each nodes has 29, 12, 14, 7 and 19 observations')
 # 1)Build a tree using the first 60 observations of kyphosis.
 TREE=rpart(Kyphosis ~ Age + Number + Start, data=kyphosis[1:60,],method="class")
 TREE
-
 # 2)Predict the kyphosis presence for the other 21 observations.
 PR=predict(TREE, kyphosis[61:81,], type='class')
+# 3)Which is the misclassification rate (prediction error)
+test=kyphosis$Kyphosis[61:81]
+table(PR, test)
+
+rate=100*length(which(PR!=test))/length(PR)
+cat('the misclassification rate is:', rate)
+
+#1)Build a tree to classify Species from the other variables.
+TREE2=rpart(Species ~ ., data=iris,method="class")
+TREE2
 
 
+#------NOT COMPLETED------------
 
 
 
