@@ -8,7 +8,8 @@ This is an [R Markdown](http://rmarkdown.rstudio.com) Notebook. When you execute
 Try executing this chunk by clicking the *Run* button within the chunk or by placing your cursor inside it and pressing *Ctrl+Shift+Enter*. 
 
 ```{r}
-#https://www.r-bloggers.com/basic-tree-1-exercises/
+#------https://www.r-bloggers.com/basic-tree-1-exercises/------
+#------http://r-exercises.com/2016/12/15/basic-tree-2/------
 
 
 #Use read.csv() command to load the lenses.csv data and store it in lens. Use the str() command to see lens.
@@ -51,6 +52,61 @@ lens=lens[lens$astigmatic!="g",]
 #Great Work. We realized that the index column is not necessary for our modeling purposes. So lets remove the index column.
 lens
 lens=lens[-1]
+
+
+
+
+
+
+#------http://r-exercises.com/2016/12/15/basic-tree-2/------
+
+
+
+
+
+#load the tree library. If it is not installed then use the install.packages() command to install it.
+if(!require(tree)){
+  install.packages("tree")
+}
+library(tree)
+
+#Convert all the feaures(columns) into factors, including the class column
+lens$class=as.factor(lens$class)
+lens$age=as.factor(lens$age)
+lens$spec_pres=as.factor(lens$spec_pres)
+lens$astigmatic=as.factor(lens$astigmatic)
+lens$tpr=as.factor(lens$tpr)
+
+#Use the sample methods that you learnt from the sample_exercise to split the data into two sets with a SplitRatio of 0.7. Hint: Use caTools library and sample.split() function. Store the results into Train and Test.
+library(caTools)
+spl=sample.split(lens$class, SplitRatio = 0.7)
+Train=lens[spl==TRUE,]
+Test=lens[spl==FALSE,]
+
+#Use the tree() command to build the model. Use class as the target variable and everything else as the predictor variable. Also, use the Train variable as the data source. Store the model in a variable called model1
+model1=tree(class~., data = Train)
+
+#Use the plot() command to plot the model and use the text() command to add the text.
+plot(model1)
+text(model1)
+
+#Use the predict() command to predict the classes using the Test dataset. We want to predict the classes. Store this in the variable pred_class
+pred_class=predict(model1, newdata = Test, type = "class")
+
+#Use the table() command to print the confusion matrix. Hint: You are comparing the class from the Test set and the predicted vector. This tells you wether the model is answering anything right or wrong
+table(Test$class, pred_class)
+
+#use the summary() to print the summary of the model and note the misclassification error rate.
+summary(model1)
+
+#Now find the misclassification error rate of the model on the Test data. Use the formula. mean(Test$class != pred_class)
+mean(Test$class !=pred_class)
+
+#Compare the two misclassification error rates and determine which is worse and why. How can we improve the model?
+
+  ##The mer is worse on the test set because the model is not good. It is producing more errors when it is seeing new  data. In order to improve the model, we might think of pruning the tree, getting more data or switching to another model.##
+
+
 
 ```
 
